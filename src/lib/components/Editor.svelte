@@ -5,7 +5,6 @@
 	import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
 	import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
 	import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
-	import { ProgressRadial } from '@skeletonlabs/skeleton';
 
 	let subscriptions = [];
 	export let content;
@@ -62,7 +61,7 @@
 </script>
 
 {#if ! loaded}
-	<ProgressRadial value={undefined} />
+	loading
 {/if}
 <div bind:this={divEl} class='h-full w-full' />
 <svelte:window
