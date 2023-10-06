@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.default h1 {
+    /* Manually set font style for h1 */
+    font-size: 2em; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    margin: 0.67em 0; /* Adjust the margins as needed */
+}
+
+.default h2 {
+    /* Manually set font style for h2 */
+    font-size: 1.5em; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    margin: 0.75em 0; /* Adjust the margins as needed */
+}
+
+.default h3 {
+    /* Manually set font style for h3 */
+    font-size: 1.17em; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    margin: 0.83em 0; /* Adjust the margins as needed */
+}
+
+.default h4,
+.default h5,
+.default h6 {
+    /* Manually set font styles for h4, h5, and h6 */
+    font-size: 1em; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    margin: 1em 0; /* Adjust the margins as needed */
+}
+
+.default a {
+    /* Manually set font styles for links */
+    text-decoration: underline; /* Example: returning links to underlined style */
+    color: blue; /* Example: returning links to blue color */
+}

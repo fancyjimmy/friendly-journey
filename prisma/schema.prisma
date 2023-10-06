@@ -42,7 +42,8 @@ model CodeSnippet {
 
 model Image {
   id        Int      @id @default(autoincrement())
-  name      String
+  file      String
+  name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   protocolHint Protocol? @relation(fields: [protocolHintId], references: [id])
