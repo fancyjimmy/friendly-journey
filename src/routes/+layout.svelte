@@ -3,7 +3,6 @@
 
 
 
-	export let data;
 </script>
 
 <slot/>

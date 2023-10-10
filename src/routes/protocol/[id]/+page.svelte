@@ -1,13 +1,32 @@
 <script lang="ts">
 
-import ImageProtocolUpload from '$lib/components/ImageProtocolUpload.svelte';
-import ImagePaste from '$lib/components/ImagePaste.svelte';
-import Editor from '$lib/components/Editor.svelte';
+	import Editor from '$lib/components/Editor.svelte';
+	import { setContext } from 'svelte';
 
+	export let data;
+
+	setContext('protocol', data.protocolId);
 </script>
 
-<ImageProtocolUpload/>
 
-<ImagePaste></ImagePaste>
+<h1 class='p-4 text-5xl font-bold'>{data.protocol.name}</h1>
+<Editor
+	content={data.protocol.content}
+	on:save={async (e) => {
+		const content = e.detail;
 
-<Editor/>
+		// TODO refactor to repository function
+		const response = await fetch('/api/protocol', {
+			body: JSON.stringify({
+				content,
+				id: data.protocolId,
+				name: data.protocol.name,
+				subjectId: data.protocol.subjectId
+			}),
+			method: 'POST'
+		});
+
+		const json = await response.json();
+		console.log(json);
+	}}
+/>

@@ -1,14 +1,14 @@
 <script lang="ts">
 import ImageInput from '$lib/components/ImageInput.svelte';
+import { IMAGE_UPLOAD_API_URL } from '$lib/constants';
 
-export let url = "/api/image";
 export let name = "image";
 export let file = undefined;
 export let protocol = undefined;
 export const method = "POST";
 
 function uploadImage (){
-	fetch(url, {
+	fetch(IMAGE_UPLOAD_API_URL, {
 		method: "POST",
 		body: JSON.stringify({ file, protocol, name }),
 		headers: {

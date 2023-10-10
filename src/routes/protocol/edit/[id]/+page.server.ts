@@ -4,9 +4,9 @@ import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
-	const protocol = await prisma.protocol.findFirst({
+	const protocol = await prisma.protocol.findUnique({
 		where: {
-			subjectId: parseInt(params.id)
+			id: parseInt(params.id)
 		},
 		include: {
 			subject: true,

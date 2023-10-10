@@ -10,6 +10,7 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [
+		require('@tailwindcss/typography')
 		// 3. Append the Skeleton plugin to the end of this list
 	]
 }

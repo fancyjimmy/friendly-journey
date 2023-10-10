@@ -1,9 +1,8 @@
 import { Node, mergeAttributes } from '@tiptap/core';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
-import Counter from './Counter.svelte';
-import EditBlock from './EditBlock.svelte';
 import ImageTipTap from '$lib/components/tiptap/ImageTipTap.svelte';
+import CounterComponent from '$lib/components/tiptap/CounterComponent.svelte';
 
 export const SvelteCounterExtension = Node.create({
 	name: 'SvelteCounterComponent',
@@ -29,33 +28,7 @@ export const SvelteCounterExtension = Node.create({
 	},
 
 	addNodeView() {
-		return SvelteNodeViewRenderer(Counter);
-	}
-});
-
-export const SvelteEditableExtension = Node.create({
-	name: 'SvelteEditableComponent',
-	group: 'block',
-	draggable: true,
-
-	addAttributes() {
-		return {
-			src: {
-				default: ''
-			}
-		};
-	},
-
-	parseHTML() {
-		return [{ tag: 'svelte-editable-component' }];
-	},
-
-	renderHTML({ HTMLAttributes }) {
-		return ['svelte-editable-component', mergeAttributes(HTMLAttributes), 0];
-	},
-
-	addNodeView() {
-		return SvelteNodeViewRenderer(EditBlock);
+		return SvelteNodeViewRenderer(CounterComponent);
 	}
 });
 
@@ -82,7 +55,7 @@ export const SvelteImageExtension = Node.create({
 	},
 
 	renderHTML({ HTMLAttributes }) {
-		return ['svelte-image-component', mergeAttributes(HTMLAttributes), 0];
+		return ['svelte-image-component', mergeAttributes(HTMLAttributes)];
 	},
 
 	addNodeView() {
