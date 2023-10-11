@@ -9,6 +9,7 @@
 		SvelteImageExtension
 	} from '$lib/components/tiptap/SvelteExtension';
 	import { getHandlePaste } from '$lib/components/tiptap/utils';
+	import { beforeNavigate } from '$app/navigation';
 
 	let editor: Readable<Editor>;
 	type Level = 1 | 2 | 3 | 4 | 5 | 6;
@@ -134,9 +135,17 @@
 	];
 
 	$: isActive = (name: string, attrs = {}) => $editor.isActive(name, attrs);
+
+
+	beforeNavigate((navigation) => {
+		const confirmation = confirm('Are you sure you want to leave?');
+		if (!confirmation) {
+			navigation.cancel();
+		}
+	});
 </script>
 
-<div class="p-4">
+<div class="p-4 grid-cols-[auto_1fr]">
 	{#if editor}
 		<BubbleMenu editor={$editor}>
 			<div data-test-id="bubble-menu" class="flex rounded-xl overflow-hidden text-sm">
@@ -161,7 +170,7 @@
 			</div>
 		</BubbleMenu>
 
-		<div class="border-black border-2 rounded-t-md p-2 flex gap-1">
+		<div class="border-black border-2 rounded-t-md p-2 flex gap-1 sticky">
 			{#each menuItems as item (item.name)}
 				<button
 					type="button"
@@ -175,8 +184,11 @@
 			{/each}
 		</div>
 	{/if}
-
-	<div class="prose-md prose-pre:bg-slate-800 prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded">
-		<EditorContent editor={$editor}/>
+	<div class="w-full overflow-y-auto">
+		<div
+			class="prose-lg prose-pre:bg-slate-800 prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1"
+		>
+			<EditorContent editor={$editor} />
+		</div>
 	</div>
 </div>
