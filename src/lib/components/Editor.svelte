@@ -8,7 +8,7 @@
 		SvelteCounterExtension,
 		SvelteImageExtension
 	} from '$lib/components/tiptap/SvelteExtension';
-	import { getHandlePaste, getOnTransaction } from '$lib/components/tiptap/utils';
+	import { getHandlePaste } from '$lib/components/tiptap/utils';
 
 	let editor: Readable<Editor>;
 	type Level = 1 | 2 | 3 | 4 | 5 | 6;
@@ -20,13 +20,13 @@
 			content,
 			editorProps: {
 				attributes: {
-					class: 'border-2 border-black border-t-0 rounded-b-md p-3 outline-none'
+					class: 'border-2 border-black border-t-0 rounded-b-md p-3 outline-none',
+					spellcheck: false
 				}
 			}
 		});
 
 		$editor.setOptions({
-			onTransaction: getOnTransaction($editor),
 			editorProps: {
 				handlePaste: getHandlePaste($editor, (image) => {
 					$editor.commands.insertContent(
@@ -49,6 +49,10 @@
 		return () => {
 			$editor.chain().focus().toggleHeading({ level }).run();
 		};
+	};
+
+	const toggleCode = () => {
+		$editor.chain().focus().toggleCodeBlock().run();
 	};
 
 	const setParagraph = () => {
@@ -102,6 +106,12 @@
 			command: toggleBold,
 			content: 'B',
 			active: () => isActive('bold')
+		},
+		{
+			name: 'code',
+			command: toggleCode,
+			content: 'C',
+			active: () => isActive('code')
 		},
 		{
 			name: 'italic',
@@ -166,7 +176,7 @@
 		</div>
 	{/if}
 
-	<div class="prose-md">
-		<EditorContent editor={$editor} />
+	<div class="prose-md prose-pre:bg-slate-800 prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded">
+		<EditorContent editor={$editor}/>
 	</div>
 </div>

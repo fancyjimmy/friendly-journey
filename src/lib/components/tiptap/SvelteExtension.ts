@@ -1,7 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core';
 import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
-import ImageTipTap from '$lib/components/tiptap/ImageTipTap.svelte';
+import ImageTipTap from '$lib/components/tiptap/ImageInsertTipTap.svelte';
 import CounterComponent from '$lib/components/tiptap/CounterComponent.svelte';
 
 export const SvelteCounterExtension = Node.create({
@@ -46,6 +46,9 @@ export const SvelteImageExtension = Node.create({
 			},
 			title: {
 				default: ''
+			},
+			saved: {
+				default: false
 			}
 		};
 	},

@@ -7,9 +7,9 @@
 
 	type NodeViewPropsExtended = NodeViewProps['node'] & {
 		attrs: {
-			src: string,
-			title: string,
-			saved: boolean
+			src: string;
+			title: string;
+			saved: boolean;
 		};
 	};
 
@@ -30,10 +30,8 @@
 		});
 		const json = await result.json();
 
-
-		prefix = false;
 		updateAttributes({
-			src: json.file,
+			src: `${PREFIX}/${json.file}`,
 			title: json.name,
 			saved: true
 		});
@@ -41,7 +39,6 @@
 
 	const PREFIX = '/dynamic/images';
 	let newTitle = '';
-	let prefix = true;
 </script>
 
 <NodeViewWrapper
@@ -52,36 +49,32 @@
 	})}
 	data-drag-handle=""
 >
-	<span
-		contenteditable="false">{node.attrs.title}</span
-	>
+	<span contenteditable="false">{node.attrs.title}</span>
 
 	<div class="p-1 relative">
-		{#if node.attrs.saved}
-			{#if node.attrs.src}
-				{#if prefix}
-					<img src="{PREFIX}/{node.attrs.src}" alt={node.attrs.title} />
-				{:else}
+		{#if !node.attrs.src}
+			<p>Kein Bild</p>
+		{:else}
+			{#if node.attrs.saved}
 					<img src="{node.attrs.src}" alt={node.attrs.title} />
-				{/if}
-				<div
-					class="absolute top-1 right-1 border-2 m-2 border-black bg-white rounded divide-x-2 divide-black"
-				>
-					<button class="px-1">edit</button>
-					<button class="px-1">replace</button>
-					<button class="px-1">select</button>
-				</div>
+					<div
+						class="absolute top-1 right-1 border-2 m-2 border-black bg-white rounded divide-x-2 divide-black"
+					>
+						<button class="px-1">edit</button>
+						<button class="px-1">replace</button>
+						<button class="px-1">select</button>
+					</div>
 			{:else}
-				<p class="text-center">Paste Image or Upload</p>
-			{/if}
-		{:else if node.attrs.src}
-			<input type="text" bind:value={newTitle} placeholder="Name" />
-			<img src={node.attrs.src} alt={node.attrs.title} />
-			<button
-				on:click={() => {
+				SAVE
+				<input type="text" bind:value={newTitle} placeholder="Name" />
+				<img src={node.attrs.src} alt={node.attrs.title} />
+				<button
+					on:click={() => {
 					uploadImage();
 				}}>Save</button
-			>
+				>
+			{/if}
 		{/if}
+
 	</div>
 </NodeViewWrapper>
