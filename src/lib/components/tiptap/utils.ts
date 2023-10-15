@@ -1,11 +1,5 @@
 import type { Editor } from 'svelte-tiptap';
 
-export function getOnTransaction(editor: Editor) {
-	return () => {
-		editor = editor;
-	};
-}
-
 export function getHandlePaste(editor: Editor, imageUpload: (imageBase64: string) => void) {
 	return (view: unknown, event: ClipboardEvent) => {
 		const item = event.clipboardData?.items[0];

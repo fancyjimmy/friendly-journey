@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ImageInput from '$lib/components/ImageInput.svelte';
 
 	export let url = "/api/codesnippet";
 	export let name = "";
@@ -7,7 +6,7 @@
 	export const method = "POST";
 	function uploadImage (){
 		fetch(url, {
-			method: "POST",
+			method: method,
 			body: JSON.stringify({ content, name }),
 			headers: {
 				'Content-Type': 'application/json'

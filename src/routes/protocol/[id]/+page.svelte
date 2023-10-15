@@ -1,15 +1,12 @@
 <script lang="ts">
-
 	import Editor from '$lib/components/Editor.svelte';
-	import { setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 
 	export let data;
-
-	setContext('protocol', data.protocolId);
+	setContext('protocol', data.protocol.id);
 </script>
 
-
-<h1 class='p-4 text-5xl font-bold'>{data.protocol.name}</h1>
+<h1 class="p-4 text-5xl font-bold">{data.protocol.name}</h1>
 <Editor
 	content={data.protocol.content}
 	on:save={async (e) => {

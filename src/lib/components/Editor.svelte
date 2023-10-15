@@ -3,21 +3,33 @@
 	import type { Readable } from 'svelte/store';
 	import StarterKit from '@tiptap/starter-kit';
 	import cx from 'clsx';
-	import { Editor, EditorContent, BubbleMenu, createEditor } from 'svelte-tiptap';
+	import { Editor, EditorContent, BubbleMenu, createEditor, FloatingMenu } from 'svelte-tiptap';
 	import {
 		SvelteCounterExtension,
 		SvelteImageExtension
 	} from '$lib/components/tiptap/SvelteExtension';
 	import { getHandlePaste } from '$lib/components/tiptap/utils';
 	import { beforeNavigate } from '$app/navigation';
+	import { Extension } from '@tiptap/core';
+	import { CharacterCount } from '@tiptap/extension-character-count';
 
 	let editor: Readable<Editor>;
 	type Level = 1 | 2 | 3 | 4 | 5 | 6;
 	export let content = '';
 
+	const CustomExtension = Extension.create({
+		addKeyboardShortcuts() {
+			return {
+				'Mod-s': () => {
+					save();
+					return true;
+				}
+			};
+		}
+	});
 	onMount(() => {
 		editor = createEditor({
-			extensions: [StarterKit, SvelteImageExtension, SvelteCounterExtension],
+			extensions: [StarterKit, CustomExtension, SvelteImageExtension, SvelteCounterExtension, CharacterCount],
 			content,
 			editorProps: {
 				attributes: {
@@ -136,7 +148,6 @@
 
 	$: isActive = (name: string, attrs = {}) => $editor.isActive(name, attrs);
 
-
 	beforeNavigate((navigation) => {
 		const confirmation = confirm('Are you sure you want to leave?');
 		if (!confirmation) {
@@ -145,7 +156,7 @@
 	});
 </script>
 
-<div class="p-4 grid-cols-[auto_1fr]">
+<div class="p-4 grid-cols-[auto_1fr] rounded-xl">
 	{#if editor}
 		<BubbleMenu editor={$editor}>
 			<div data-test-id="bubble-menu" class="flex rounded-xl overflow-hidden text-sm">
@@ -170,7 +181,7 @@
 			</div>
 		</BubbleMenu>
 
-		<div class="border-black border-2 rounded-t-md p-2 flex gap-1 sticky">
+		<div class="border-black border-2 rounded-t-md p-2 flex gap-1 sticky top-0 bg-white z-10">
 			{#each menuItems as item (item.name)}
 				<button
 					type="button"
@@ -183,12 +194,56 @@
 				</button>
 			{/each}
 		</div>
+
+		<FloatingMenu editor={$editor}>
+			<div data-test-id="floating-menu">
+				<button
+					class={cx('border border-black rounded px-2 hover:bg-black hover:text-white', {
+          'bg-black text-white': isActive('heading', { level: 1 }),
+        })}
+					type="button"
+					on:click={toggleHeading(1)}
+				>
+					h1
+				</button>
+				<button
+					class={cx('border border-black rounded px-2 hover:bg-black hover:text-white', {
+          'bg-black text-white': isActive('bold'),
+        })}
+					type="button"
+					on:click={toggleBold}
+				>
+					bold
+				</button>
+				<button
+					class={cx('border border-black rounded px-2 hover:bg-black hover:text-white', {
+          'bg-black text-white': isActive('italic'),
+        })}
+					type="button"
+					on:click={toggleItalic}
+				>
+					italic
+				</button>
+			</div>
+		</FloatingMenu>
+
+		<div>
+			{$editor.storage.characterCount?.characters()} characters
+			<br />
+			{$editor.storage.characterCount?.words()} words
+		</div>
 	{/if}
 	<div class="w-full overflow-y-auto">
 		<div
-			class="prose-lg prose-pre:bg-slate-800 prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1"
+			class="cool-prose"
 		>
 			<EditorContent editor={$editor} />
 		</div>
 	</div>
 </div>
+<!-- class="prose-lg prose-pre:bg-slate-800 prose-ol:list-decimal prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1" -->
+<style>
+	.cool-prose{
+
+	}
+</style>

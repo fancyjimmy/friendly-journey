@@ -3,7 +3,7 @@
 import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params }) => {
+export const load = (async () => {
 	const protocols = await prisma.protocol.findMany({
 		select: {
 			id: true,

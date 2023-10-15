@@ -2,8 +2,6 @@
 	let imageUrl = "";
 
 
-
-
 	const handlePaste = (event) => {
 		const items = event.clipboardData.items;
 
@@ -28,5 +26,5 @@
 
 <div on:paste={handlePaste}>
 	<h2>Paste an image:</h2>
-	<img src={imageUrl} alt="Pasted Image" />
+	<img src={imageUrl} alt="Pasted" />
 </div>

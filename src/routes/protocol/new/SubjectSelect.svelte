@@ -7,6 +7,6 @@
 
 <select name={name}>
 	{#each subjects as subject}
-		<option value={subject.id} selected={subject.id == value}>{subject.name}</option>
+		<option value={subject.id} selected='selected'>{subject.name}</option>
 	{/each}
 </select>
