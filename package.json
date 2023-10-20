@@ -44,17 +44,20 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@codemirror/lang-javascript": "^6.2.1",
 		"@prisma/client": "^5.3.1",
 		"@supabase/auth-helpers-sveltekit": "^0.10.1",
 		"@supabase/supabase-js": "^2.26.0",
 		"@tiptap/core": "^2.1.11",
 		"@tiptap/extension-character-count": "^2.1.12",
-		"@tiptap/extension-text-align": "^2.1.11",
+		"@tiptap/extension-text-align": "^2.1.12",
+		"@tiptap/extension-underline": "^2.1.12",
 		"@tiptap/pm": "^2.1.11",
 		"@tiptap/starter-kit": "^2.1.11",
 		"clsx": "^2.0.0",
 		"marked": "^8.0.0",
 		"monaco-editor": "^0.40.0",
+		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-tiptap": "^1.1.2",
 		"uuid": "^9.0.1"
 	}

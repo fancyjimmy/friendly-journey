@@ -3,7 +3,8 @@
 	import cx from 'clsx';
 	import { NodeViewWrapper } from 'svelte-tiptap';
 	import { IMAGE_UPLOAD_API_URL } from '$lib/constants';
-	import { getContext } from 'svelte';
+	import { protocolId } from '$lib/components/tiptap/store';
+	import { get } from 'svelte/store';
 
 	type NodeViewPropsExtended = NodeViewProps['node'] & {
 		attrs: {
@@ -17,13 +18,11 @@
 	export let updateAttributes: NodeViewProps['updateAttributes'];
 	export let selected: NodeViewProps['selected'] = false;
 
-	let protocol = getContext('protocol');
-
 	async function uploadImage() {
 		const image = node.attrs.src.split(',')[1];
 		const result = await fetch(IMAGE_UPLOAD_API_URL, {
 			method: 'POST',
-			body: JSON.stringify({ file: image, protocol, name: newTitle }),
+			body: JSON.stringify({ file: image, protocol: protocolId ? get(protocolId): undefined, name: newTitle }),
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -54,27 +53,24 @@
 	<div class="p-1 relative">
 		{#if !node.attrs.src}
 			<p>Kein Bild</p>
+		{:else if node.attrs.saved}
+			<img src={node.attrs.src} alt={node.attrs.title} />
+			<div
+				class="absolute top-1 right-1 border-2 m-2 border-black bg-white rounded divide-x-2 divide-black"
+			>
+				<button class="px-1">edit</button>
+				<button class="px-1">replace</button>
+				<button class="px-1">select</button>
+			</div>
 		{:else}
-			{#if node.attrs.saved}
-					<img src="{node.attrs.src}" alt={node.attrs.title} />
-					<div
-						class="absolute top-1 right-1 border-2 m-2 border-black bg-white rounded divide-x-2 divide-black"
-					>
-						<button class="px-1">edit</button>
-						<button class="px-1">replace</button>
-						<button class="px-1">select</button>
-					</div>
-			{:else}
-				SAVE
-				<input type="text" bind:value={newTitle} placeholder="Name" />
-				<img src={node.attrs.src} alt={node.attrs.title} />
-				<button
-					on:click={() => {
+			SAVE
+			<input type="text" bind:value={newTitle} placeholder="Name" />
+			<img src={node.attrs.src} alt={node.attrs.title} />
+			<button
+				on:click={() => {
 					uploadImage();
 				}}>Save</button
-				>
-			{/if}
+			>
 		{/if}
-
 	</div>
 </NodeViewWrapper>

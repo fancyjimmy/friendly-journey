@@ -6,7 +6,8 @@
 	const navEntries = [
 		{ name: 'Home', href: '/' },
 		{ name: 'Protocols', href: '/protocol' },
-		{ name: 'Subjects', href: '/subject' }
+		{ name: 'Subjects', href: '/subject' },
+		{ name: 'Math', href: '/math' }
 	];
 </script>
 
