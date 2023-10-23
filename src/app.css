@@ -38,3 +38,11 @@
     text-decoration: underline; /* Example: returning links to underlined style */
     color: blue; /* Example: returning links to blue color */
 }
+
+@layer components {
+    .cool-container {
+        @apply rounded border-2 border-black;
+        --box-shadow-size: 0.25rem;
+        box-shadow: calc(var(--box-shadow-size) * -1) var(--box-shadow-size) 0 black;
+    }
+}

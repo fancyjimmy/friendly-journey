@@ -6,7 +6,7 @@
 	import { Editor, EditorContent, BubbleMenu, createEditor, FloatingMenu } from 'svelte-tiptap';
 	import {
 		SvelteCounterExtension,
-		SvelteImageExtension
+		SvelteImageExtension, SvelteLatexExtension
 	} from '$lib/components/tiptap/SvelteExtension';
 	import { getHandlePaste, reverseEnum } from '$lib/components/tiptap/utils';
 	import { beforeNavigate } from '$app/navigation';
@@ -17,15 +17,12 @@
 	import { TextAlign } from '@tiptap/extension-text-align';
 	import { Underline } from '@tiptap/extension-underline';
 	import { protocolId } from '$lib/components/tiptap/store';
+	import { html } from 'js-beautify';
 
 	let editor: Readable<Editor>;
 	type Level = 1 | 2 | 3 | 4 | 5 | 6;
 	export let startContent = '';
-	export let value = "";
-
-
-
-
+	export let value = '';
 
 	const CustomExtension = Extension.create({
 		addKeyboardShortcuts() {
@@ -44,19 +41,20 @@
 				CustomExtension,
 				SvelteImageExtension,
 				SvelteCounterExtension,
+				SvelteLatexExtension,
 				CharacterCount,
 				TextAlign,
 				Underline
 			],
-			content : startContent,
+			content: startContent,
 			editorProps: {
 				attributes: {
-					class: 'border-2 border-black border-t-0 rounded-b-md p-3 outline-none',
+					class: 'p-3 outline-none',
 					spellcheck: false
 				}
 			},
-			onUpdate(){
-				value = $editor.getHTML();
+			onUpdate() {
+				value = html($editor.getHTML());
 			}
 		});
 
@@ -70,7 +68,6 @@
 			}
 		});
 	});
-
 	const toggleHeading = (level: Level) => {
 		return () => {
 			$editor.chain().focus().toggleHeading({ level }).run();
@@ -135,40 +132,17 @@
 	// load protocol.
 	let protocol = getContext('protocol') as number;
 	$: $protocolId = protocol;
-	beforeNavigate((navigation) => {
-		const confirmation = confirm('Are you sure you want to leave?');
-		if (!confirmation) {
-			navigation.cancel();
-		}
-	});
 </script>
 
-<div class="p-4 grid-cols-[auto_1fr] rounded-xl">
+<div class="p-2 grid-cols-[auto_1fr] rounded-xl">
 	{#if editor}
 		<BubbleMenu editor={$editor}>
-			<div data-test-id="bubble-menu" class="flex rounded-xl overflow-hidden text-sm">
-				<button
-					class={cx('p-2 bg-black text-white/90 hover:text-white', {
-						'!text-white': isActive('bold')
-					})}
-					type="button"
-					on:click={toggleBold}
-				>
-					bold
-				</button>
-				<button
-					class={cx('p-2 bg-black text-white/90 hover:text-white', {
-						'!text-white': isActive('italic')
-					})}
-					type="button"
-					on:click={toggleItalic}
-				>
-					italic
-				</button>
+			<div data-test-id="bubble-menu" class="text-sm">
+				<TextFormatting {toggleText}/>
 			</div>
 		</BubbleMenu>
 
-		<div class="border-black border-2 rounded-t-md p-2 flex gap-1 sticky top-0 bg-white z-10">
+		<div class="cool-container rounded-t-md p-3 flex gap-3 sticky top-3 bg-pink-400 z-10 m-4">
 			<TagSelector
 				value={Object.keys(activeMap).filter((tag) => activeMap[tag]())[0]}
 				on:change={(event) => {
@@ -177,38 +151,21 @@
 				}}
 			/>
 			<TextFormatting {toggleText} />
+			<button class='cool-container uppercase text-black bg-white font-extrabold' on:click={save}>
+				<div class='bg-white hover:scale-125 duration-100 px-1 border-black rounded'>
+					SAVE
+				</div>
+			</button>
 		</div>
 
 		<FloatingMenu editor={$editor}>
-			<div data-test-id="floating-menu">
-				<button
-					class={cx('border border-black rounded px-2 hover:bg-black hover:text-white', {
-						'bg-black text-white': isActive('heading', { level: 1 })
-					})}
-					type="button"
-					on:click={toggleHeading(1)}
-				>
-					h1
-				</button>
-				<button
-					class={cx('border border-black rounded px-2 hover:bg-black hover:text-white', {
-						'bg-black text-white': isActive('bold')
-					})}
-					type="button"
-					on:click={toggleBold}
-				>
-					bold
-				</button>
-				<button
-					class={cx('border border-black rounded px-2 hover:bg-black hover:text-white', {
-						'bg-black text-white': isActive('italic')
-					})}
-					type="button"
-					on:click={toggleItalic}
-				>
-					italic
-				</button>
-			</div>
+			<TagSelector
+				value={Object.keys(activeMap).filter((tag) => activeMap[tag]())[0]}
+				on:change={(event) => {
+					const tag = event.detail;
+					activationMap[tag]();
+				}}
+			/>
 		</FloatingMenu>
 
 		<!--
@@ -221,7 +178,7 @@
 	{/if}
 	<div class="w-full overflow-y-auto">
 		<div
-			class="prose-lg prose-pre:bg-slate-800 prose-ol:list-decimal prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1"
+			class="border-black border-2 prose-lg prose-pre:bg-slate-200 prose-ol:list-decimal prose-pre:text-black prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1"
 		>
 			<EditorContent editor={$editor} />
 		</div>
@@ -230,6 +187,6 @@
 
 <!-- class="prose-lg prose-pre:bg-slate-800 prose-ol:list-decimal prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1" -->
 <style>
-    .cool-prose {
-    }
+	.cool-prose {
+	}
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '../../app.css';
 	import { colors } from '$lib/constants';
 
 
@@ -9,6 +9,7 @@
 		{ name: 'Subjects', href: '/subject' },
 		{ name: 'Math', href: '/math' }
 	];
+
 </script>
 
 <div class="flex flex-col h-screen w-screen">

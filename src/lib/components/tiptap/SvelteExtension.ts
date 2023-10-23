@@ -3,6 +3,7 @@ import { SvelteNodeViewRenderer } from 'svelte-tiptap';
 
 import ImageTipTap from '$lib/components/tiptap/ImageInsertTipTap.svelte';
 import CounterComponent from '$lib/components/tiptap/CounterComponent.svelte';
+import LatexComponent from '$lib/components/tiptap/LatexComponent.svelte';
 
 export const SvelteCounterExtension = Node.create({
 	name: 'SvelteCounterComponent',
@@ -63,5 +64,24 @@ export const SvelteImageExtension = Node.create({
 
 	addNodeView() {
 		return SvelteNodeViewRenderer(ImageTipTap);
+	}
+});
+
+export const SvelteLatexExtension = Node.create({
+	name: 'SvelteLatexComponent',
+	group: 'block',
+	content: 'inline*',
+	draggable: true,
+
+	parseHTML() {
+		return [{ tag: 'svelte-latex-component' }];
+	},
+
+	renderHTML({ HTMLAttributes }) {
+		return ['svelte-latex-component', mergeAttributes(HTMLAttributes), 0];
+	},
+
+	addNodeView() {
+		return SvelteNodeViewRenderer(LatexComponent);
 	}
 });

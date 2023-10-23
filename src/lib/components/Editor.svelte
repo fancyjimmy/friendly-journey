@@ -1,13 +1,47 @@
-<script>
+<script lang="ts">
 	import TipTapEditor from '$lib/components/tiptap/TipTapEditor.svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
-	import CodeMirror from "svelte-codemirror-editor";
-	import { javascript } from "@codemirror/lang-javascript";
-	export let content;
+	import { html } from '@codemirror/lang-html';
+	import CodeMirrorEditor from '$lib/components/CodeMirror/CodeMirrorEditor.svelte';
+	import LeaveGuard from '$lib/components/LeaveGuard.svelte';
+
 	export let value;
+	export let startedValue;
+
+	export let codeView = false;
+	let toggleCodeView = () => {
+		codeView = !codeView;
+	};
+
+	onMount(() => {
+		value = startedValue;
+	})
+
+	function save(text: string){
+		dispatch("save", text);
+		startedValue = value;
+	}
 </script>
 
-<TipTapEditor on:save={(event) => {dispatch("save", event.detail);}} startContent={content} bind:value></TipTapEditor>
-<CodeMirror bind:value lang={javascript()} />
+<button on:click={toggleCodeView}>Toggle Code View</button>
+<LeaveGuard
+	leaveAllowed={() => {
+		return startedValue === value;
+	}}
+>
+	{#if codeView}
+		<CodeMirrorEditor
+			on:save={(event) => {save(event.detail)}}
+			bind:value
+			lang={html()}
+		/>
+	{:else}
+		<TipTapEditor
+			on:save={(event) => {save(event.detail)}}
+			startContent={value}
+			bind:value
+		/>
+	{/if}
+</LeaveGuard>

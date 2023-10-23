@@ -15,7 +15,7 @@
 </script>
 
 <div class=" flex gap-2">
-	<div class="flex gap-1 bg-sky-100 rounded">
+	<div class="flex gap-1 icon-button-container blue">
 		<button class="icon-button" on:click={toggleText.toggleBold}
 			><svg
 				class="icon dark:text-white"
@@ -103,7 +103,7 @@
 		>
 	</div>
 
-	<div class="flex gap-1">
+	<div class="flex gap-1 icon-button-container green">
 		<button class="icon-button" on:click={toggleText.toggleUnorderedList}
 			><svg
 				class="icon dark:text-white"
@@ -136,11 +136,10 @@
 					d="M9.5 3h9.563M9.5 9h9.563M9.5 15h9.563M1.5 13a2 2 0 1 1 3.321 1.5L1.5 17h5m-5-15 2-1v6m-2 0h4"
 				/>
 			</svg>
-		</button
-		>
+		</button>
 	</div>
 
-	<div class="flex gap-1">
+	<div class="flex gap-1 icon-button-container yellow">
 		<button class="icon-button" on:click={toggleText.alignLeft}
 			><svg
 				class="icon dark:text-white"
@@ -192,18 +191,39 @@
 				/>
 			</svg></button
 		>
-		<button on:click={toggleText.unsetAlignment}>Unset Alignment</button>
 	</div>
 </div>
 
 <style>
+	.blue {
+		@apply bg-sky-300;
+	}
+	.green {
+		@apply bg-lime-300;
+	}
+	.yellow {
+		@apply bg-yellow-300;
+	}
+
+	.green .icon-button:hover {
+		@apply bg-lime-400;
+	}
+	.blue .icon-button:hover {
+		@apply bg-sky-400;
+	}
+	.yellow .icon-button:hover {
+		@apply bg-yellow-400;
+	}
 	.icon-button {
-		@apply p-2 aspect-square h-full rounded-md flex items-center justify-center;
+		@apply p-2 aspect-square h-full rounded-md flex items-center justify-center duration-100;
 	}
 	.icon {
 		@apply w-3.5 h-3.5 text-gray-800;
 	}
-	.icon-button:hover{
-		@apply bg-gray-200;
+	.icon-button:hover {
+		@apply scale-125;
+	}
+	.icon-button-container {
+		@apply cool-container;
 	}
 </style>

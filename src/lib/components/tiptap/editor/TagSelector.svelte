@@ -23,7 +23,7 @@
 	$: disabled = value === undefined;
 </script>
 
-<div class="relative w-48 py-1 rounded text-sm text-gray-800 bg-gray-100">
+<div class="relative w-48 py-1 rounded text-sm text-gray-800 bg-gray-100 cool-container">
 	<button
 		{disabled}
 		on:click={toggleSelect}
@@ -70,7 +70,7 @@
 	</button>
 	{#if selecting}
 		<div
-			class="flex flex-col absolute mt-2 bg-white border overflow-hidden rounded z-10 w-full justify-start"
+			class="flex flex-col absolute mt-2 bg-white overflow-hidden rounded z-10 w-full justify-start cool-container"
 			transition:fade={{
 				duration: 100,
 				easing: cubicOut

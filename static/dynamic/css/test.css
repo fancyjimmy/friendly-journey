@@ -1,0 +1,20 @@
+@media print {
+    @page :first {
+        @bottom-right {
+            content: '';
+        }
+        @top-right-corner {
+            content: '';
+        }
+    }
+    @page {
+        padding: 5px;
+        @bottom-right {
+            content: counter(page) '/' counter(pages);
+        }
+
+        @top-right-corner {
+            content: '';
+        }
+    }
+}
