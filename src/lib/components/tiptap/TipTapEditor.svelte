@@ -156,6 +156,7 @@
 					SAVE
 				</div>
 			</button>
+			<slot/>
 		</div>
 
 		<FloatingMenu editor={$editor}>
@@ -187,6 +188,5 @@
 
 <!-- class="prose-lg prose-pre:bg-slate-800 prose-ol:list-decimal prose-pre:text-white prose-pre:p-2 prose-pre:my-3 prose-pre:rounded prose-p:my-1 prose-h2:mt-1 prose-h3:mt-1 prose-h4:mt-1" -->
 <style>
-	.cool-prose {
-	}
+
 </style>

@@ -1,6 +1,8 @@
 <script>
 	import { Previewer } from 'pagedjs';
 	import { onMount } from 'svelte';
+	import "../../../../app.css"
+	import Titelblatt from '$lib/components/print/Titelblatt.svelte';
 	export let data;
 
 	let print = false;

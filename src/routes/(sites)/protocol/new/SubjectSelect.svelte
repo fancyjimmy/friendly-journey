@@ -2,7 +2,6 @@
 	export let subjects =[];
 
 	export let name;
-	export let value;
 </script>
 
 <select name={name}>

@@ -42,6 +42,6 @@
 			on:save={(event) => {save(event.detail)}}
 			startContent={value}
 			bind:value
-		/>
+		><slot/></TipTapEditor>
 	{/if}
 </LeaveGuard>

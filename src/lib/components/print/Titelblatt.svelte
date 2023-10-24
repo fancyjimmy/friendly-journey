@@ -1,11 +1,12 @@
 <script>
-	import PageBreak from "$lib/PageBreak.svelte";
+
+	import PageBreak from '$lib/components/print/PageBreak.svelte';
 
 	export let titel = "Titel";
 	export let name = "Jimmy Fan";
 	export let angabeDatum = new Date().toLocaleDateString();
 	export let abgagbeDatum = new Date().toLocaleDateString();
-	export let klasse = "4AHIF";
+	export let klasse = "5AHIF";
 	export let gruppe = "01";
 </script>
 

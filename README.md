@@ -2,14 +2,17 @@
 ## Editor
 - Import Style Sheet
 - Export as Markdown
-- Save Toast
 - Save on Localstorage for errors
 - Image View
 - Links and Refrences
-- Print View
-- Code Editor View
 - Code Snippet View
 - More Custom Elements
-- Refine Editor Functions UI
 - File Historised
+- Paint function
 - Math Save and more Functions
+
+## Half finished Code Looks horrible
+- Refine Editor Functions UI
+- Save Toast
+- Code Editor View
+- Print View
