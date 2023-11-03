@@ -9,6 +9,8 @@
 	export let klasse = "5AHIF";
 	export let gruppe = "01";
 </script>
+<svelte:options customElement="title-screen" />
+
 
 {#if true}
 	<div class="titelpage">

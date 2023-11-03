@@ -68,6 +68,7 @@
 		return timer.stopTimer(value);
 	}
 	function checkAnswer() {
+
 		stopTimer({ a, b, type: 'add', answer });
 		if (answer === a + b) {
 			setEquation();

@@ -1,7 +1,7 @@
 // src/routes/+page.server.ts
 
 import prisma from '$lib/prisma';
-import type { PageServerLoad } from '../../../../../.svelte-kit/types/src/routes';
+import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
 	const id = parseInt(params.id);

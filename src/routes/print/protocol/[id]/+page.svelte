@@ -14,11 +14,15 @@
 	onMount(() => {
 		let paged = new Previewer();
 		const content = format(data.protocol.content);
-		paged.preview(content, ['/dynamic/css/test.css'], container);
+		paged.preview(content, ['/dynamic/css/test.css', '/dynamic/css/basic.css'], container);
+
+
+// In Svelte 3, do this instead:
+// customElements.define('my-element', MyElement);
 	});
 </script>
 
-<div class="prose" bind:this={container} />
+<div bind:this={container} />
 
 <style>
 </style>

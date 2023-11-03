@@ -35,6 +35,7 @@
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
 		"prisma": "^5.3.1",
+		"sass": "^1.69.4",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
 		"tailwindcss": "^3.3.2",
@@ -64,6 +65,7 @@
 		"pagedjs": "^0.4.3",
 		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-katex": "^0.1.2",
+		"svelte-splitpanes": "^0.8.0",
 		"svelte-tiptap": "^1.1.2",
 		"uuid": "^9.0.1"
 	}
